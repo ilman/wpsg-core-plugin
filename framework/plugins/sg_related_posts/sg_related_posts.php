@@ -31,6 +31,10 @@ class SG_RelatedPosts
 		}
 
 		if(!$template){
+			$template = get_template_directory().'/sg_related_posts_template.php';
+		}
+
+		if(!file_exists($template)){
 			$template = dirname(__FILE__).'/template.php';
 		}
 		
@@ -101,6 +105,10 @@ class SG_RelatedPostsWidget extends WP_Widget {
 		}
 		else {
 			$title = __('Related Posts', 'wpsg_core');
+		}
+
+		if ( isset( $instance[ 'cat_slug' ] ) ) {
+			$cat_slug = $instance[ 'cat_slug' ];
 		}
 		
 		$num_post = (isset($instance['num_post'])) ? $instance['num_post'] : 4;

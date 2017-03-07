@@ -37,6 +37,10 @@ class SG_PopularPosts{
 		}
 
 		if(!$template){
+			$template = get_template_directory().'/sg_popular_posts_template.php';
+		}
+
+		if(!file_exists($template)){
 			$template = dirname(__FILE__).'/template.php';
 		}
 
