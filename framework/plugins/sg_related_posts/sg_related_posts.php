@@ -7,22 +7,28 @@ http://www.wpbeginner.com/wp-themes/how-to-add-related-posts-with-a-thumbnail-wi
 
 class SG_RelatedPosts
 {
-	public static function get_posts($num_post=4, $template='', $args=false, $exclude='')
+	public static function get_posts($num_post=4, $template='', $args=false, $exclude='', $post_obj=null)
 	{
-		if(!isset($post)){ $post = null; }
+		global $post;
 
-		$args = array();
+		if($post_obj){
+			$post = $post_obj;
+		}
+
+		if(!$args){
+			$args = array();
+		}
+
 		$cat_ids = array();
 
-		if(!isset($post->ID)){
-			$categories = get_the_category();
-		}
-		else{
+		if(isset($post->ID)){
 			$categories = get_the_category($post->ID);
 		}
+		else{
+			$categories = get_the_category();
+		}		
 		
-		
-		if($exclude && is_array($categories)){
+		if(is_array($categories)){
 			foreach($categories as $cat){
 				if($cat->slug != $exclude){
 					$cat_ids[] = $cat->term_id;
@@ -38,7 +44,7 @@ class SG_RelatedPosts
 			$template = dirname(__FILE__).'/template.php';
 		}
 		
-		$args = array(
+		$default_args = array(
 			'category__in' => $cat_ids,
 			'posts_per_page'=> $num_post,
 			'ignore_sticky_posts' => 1,
@@ -46,12 +52,14 @@ class SG_RelatedPosts
 			'order' => 'DESC'
 		);
 
+		$args = array_merge($default_args, $args);
+
 		if(isset($post->ID)){
 			$args['post__not_in'] = array($post->ID);
 		}
 		
 		$temp_post = $post;
-		$post = new WP_Query($args);
+		$query = new WP_Query($args);
 				
 		include($template);
 		
@@ -89,7 +97,7 @@ class SG_RelatedPostsWidget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
-		SG_RelatedPosts::get_posts($instance['num_post'], '', '', $instance['cat_slug']);
+		SG_RelatedPosts::get_posts($instance['num_post'], '', false, $instance['cat_slug']);
 		
 		echo $after_widget;	
 	}

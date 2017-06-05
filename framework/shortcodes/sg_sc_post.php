@@ -100,7 +100,6 @@ function sc_sg_post_list($attr=array(), $content=null){
 	extract(shortcode_atts(array(
 		'post_type' => 'post',
 		'limit'	=> get_option('posts_per_page', 10),
-		'offset' => 0,
 		'order_by' => 'ID',
 		'order' => 'asc',
 		'list' => 'default',
@@ -108,51 +107,59 @@ function sc_sg_post_list($attr=array(), $content=null){
 		'item_rel' => '',
 		'style' => '',
 		'col_width' => 4,
-		'is_single' => false
+		'is_single' => false,
+		'skip_query' => false,
+		'category' => '',
+		'tag' => '',
 	), $attr));
 
-	unset($attr['post_type']);
-	unset($attr['limit']);
-	unset($attr['offset']);
-	unset($attr['order']);
-	unset($attr['order_by']);
-	unset($attr['list']);
-	unset($attr['class']);
-	unset($attr['item_rel']);
-	unset($attr['style']);
-	unset($attr['col_width']);
+	if(isset($attr['post_type'])){ unset($attr['post_type']); }
+	if(isset($attr['limit'])){ unset($attr['limit']); }
+	if(isset($attr['offset'])){ unset($attr['offset']); }
+	if(isset($attr['order'])){ unset($attr['order']); }
+	if(isset($attr['order_by'])){ unset($attr['order_by']); }
+	if(isset($attr['list'])){ unset($attr['list']); }
+	if(isset($attr['class'])){ unset($attr['class']); }
+	if(isset($attr['item_rel'])){ unset($attr['item_rel']); }
+	if(isset($attr['style'])){ unset($attr['style']); }
+	if(isset($attr['col_width'])){ unset($attr['col_width']); }
+	if(isset($attr['category'])){ unset($attr['category']); }
+	if(isset($attr['tag'])){ unset($attr['tag']); }
 
 	// map attr
 	$param_args = array();
 	$param_meta = array();
 	$arr_compare = array('=', '!=', '>', '>=', '<', '<=', 'LIKE', 'NOT LIKE', 'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN', 'EXISTS', 'NOT EXISTS');
-	foreach($attr as $key=>$val){
-		if(strpos($key, 'where_meta_')===0){
 
-			$arr_val = explode(' ', $val, 3);
-			$arr_val_0 = strtoupper(trim(SG_Util::val($arr_val, 0)));
-			$arr_val_1 = strtoupper(trim(SG_Util::val($arr_val, 1)));
-			if(in_array($arr_val_0, $arr_compare)){
-				$val = SG_Util::val($arr_val, 1).' '.SG_Util::val($arr_val, 2);
-				$compare = $arr_val_0;
-			}
-			elseif($arr_val_0 == 'NOT' && in_array($arr_val_1, $arr_compare)){
-				$val = SG_Util::val($arr_val, 2);
-				$compare = $arr_val_0.' '.$arr_val_1;
+	if($attr){
+		foreach($attr as $key=>$val){
+			if(strpos($key, 'where_meta_')===0){
+
+				$arr_val = explode(' ', $val, 3);
+				$arr_val_0 = strtoupper(trim(SG_Util::val($arr_val, 0)));
+				$arr_val_1 = strtoupper(trim(SG_Util::val($arr_val, 1)));
+				if(in_array($arr_val_0, $arr_compare)){
+					$val = SG_Util::val($arr_val, 1).' '.SG_Util::val($arr_val, 2);
+					$compare = $arr_val_0;
+				}
+				elseif($arr_val_0 == 'NOT' && in_array($arr_val_1, $arr_compare)){
+					$val = SG_Util::val($arr_val, 2);
+					$compare = $arr_val_0.' '.$arr_val_1;
+				}
+				else{
+					$compare = '=';
+				}
+
+				$param_meta[] = array(
+					'key' => str_replace('where_meta_', '', $key),
+					'value' => $val,
+					'compare' => $compare
+				);
 			}
 			else{
-				$compare = '=';
+				$decode_val = json_decode($val, true);
+				$param_args[$key] = ($decode_val) ? $decode_val : $val;
 			}
-
-			$param_meta[] = array(
-				'key' => str_replace('where_meta_', '', $key),
-				'value' => $val,
-				'compare' => $compare
-			);
-		}
-		else{
-			$decode_val = json_decode($val, true);
-			$param_args[$key] = ($decode_val) ? $decode_val : $val;
 		}
 	}
 
@@ -163,15 +170,24 @@ function sc_sg_post_list($attr=array(), $content=null){
 		'order' => $order,
 	);
 
+	if(isset($category) && $category){
+		$args['category_name'] = $category;
+	}
+
+	if(isset($tag) && $tag){
+		$args['tag'] = $tag;
+	}
+
 	if($param_meta){
 		$args['meta_query'] = $param_meta;
 	}
 
 	$args = array_merge($args, $param_args);
 
-	
-
-	$sg_post = new WP_Query($args);
+	$sg_post = null;
+	if(!isset($skip_query) || !$skip_query){
+		$sg_post = new WP_Query($args);
+	}
 
 	if($is_single){
 		if($content){
@@ -183,9 +199,14 @@ function sc_sg_post_list($attr=array(), $content=null){
 		}
 	}
 	else{
-		ob_start();
-			include(sg_view_path('templates/list-'.$list.'.php'));
-		$output = ob_get_clean();
+		if(file_exists(sg_view_path('framework/templates/list-'.$list.'.php'))){
+			ob_start();
+				include(sg_view_path('framework/templates/list-'.$list.'.php'));
+			$output = ob_get_clean();
+		}
+		else{
+			$output = sg_view_path('framework/templates/list-'.$list.'.php').' file not found';
+		}
 	}
 
 	$post = $temp_post;

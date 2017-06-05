@@ -39,6 +39,9 @@ class SG_PopularPosts{
 		if(!$template){
 			$template = get_template_directory().'/sg_popular_posts_template.php';
 		}
+		else{
+			$template = get_template_directory().'/'.$template.'.php';
+		}
 
 		if(!file_exists($template)){
 			$template = dirname(__FILE__).'/template.php';
@@ -52,7 +55,27 @@ class SG_PopularPosts{
 		$post = $temp_post;
 		wp_reset_query();
 	}
+
+	public static function shortcode($attr, $content)
+	{
+		// extract the attributes into variables
+		extract(shortcode_atts(array(
+			'class' => '',
+			'limit' => get_option('posts_per_page', 10),
+			'template' => '',
+		), $attr));
+		
+		$output = self::get_posts($limit, $template);
+
+		return $output;
+	} 
 }
+
+/*---add shortcode---*/
+
+add_shortcode('sg_popular_posts', array('SG_PopularPosts', 'shortcode'));
+
+/*---add widget---*/
 
 class SG_PopularPostsWidget extends WP_Widget {
 	

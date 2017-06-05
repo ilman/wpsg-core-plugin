@@ -1,5 +1,5 @@
 <div class="row post-list">
-	<?php while($post->have_posts()): $post->the_post(); ?>
+	<?php while($query->have_posts()): $query->the_post(); ?>
 		<div class="col-sm-3 post-item">
 			<?php include(sg_view_path('framework/templates/block-post-thumb.php')); ?>
 		</div>

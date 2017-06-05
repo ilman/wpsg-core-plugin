@@ -81,7 +81,7 @@ function sc_sg_spacer($attr=array(), $content=null){
 		'class' => ''
 	), $attr));
 	
-	$param_class = trim("vspace $class");
+	$param_class = trim("spacer $class");
 	$param_style = trim("$style");
 
 	
