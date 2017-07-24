@@ -219,15 +219,48 @@ add_shortcode('sg_post_list', 'sc_sg_post_list');
 function sc_sg_post_single($attr=array(), $content=null){
 	// extract the attributes into variables
 	extract(shortcode_atts(array(
-		'post_slug' => '',
-		'post_id' => '',
+		'slug' => '',
+		'id' => '',
+		'type' => 'post',
+		'template' => '',
 	), $attr));
 
-	unset($attr['post_slug']);
-	unset($attr['post_id']);
+	$post_slug = $slug;
+	$post_id = $id;
 
-	$attr['is_single'] = true;
+	$args = array();
 
-	return sc_sg_post_single($attr, $content);
+	if($post_slug){
+		$args = array('name'=>$post_slug);
+	}
+
+	if($post_id){
+		$args = array('p'=>$post_id);
+	}
+
+	$args['post_type'] = $type;
+
+	$sg_post = new WP_Query($args);
+
+	if($template){
+		$file_template = sg_view_path('framework/templates/'.$template.'.php');
+		if(file_exists($file_template)){
+			ob_start();
+				include($file_template);
+			$output = ob_get_clean();
+		}
+		else{
+			$output = $file_template.' file not found';
+		}
+	}
+	else{
+		while ( $sg_post->have_posts() ){
+			$sg_post->the_post();
+
+			$output = do_shortcode(get_the_content());
+		}		
+	}
+
+	return $output;
 }
 add_shortcode('sg_post_single', 'sc_sg_post_single');
