@@ -287,6 +287,9 @@ function sc_sg_post_single($attr=array(), $content=null){
 		'template' => '',
 	), $attr));
 
+	global $post;
+	$temp_post = $post;
+
 	$post_slug = $slug;
 	$post_id = $id;
 
@@ -322,6 +325,8 @@ function sc_sg_post_single($attr=array(), $content=null){
 			$output = do_shortcode(get_the_content().sg_action_post_link(get_the_ID()));
 		}		
 	}
+
+	$post = $temp_post;
 
 	return $output;
 }
