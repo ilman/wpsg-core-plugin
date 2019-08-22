@@ -1,14 +1,14 @@
 <?php
 /**
  * @package WPSG_Core
- * @version 1.0
+ * @version 1.1
  */
 /*
 Plugin Name: WPSG Core
 Plugin URI: https://github.com/ilman/wpsg-core-plugin
 Description: Enables most shortcodes, plugins and custom post types used in WPSG theme framework.
 Author: Ilman Maulana
-Version: 1.0
+Version: 1.1
 */
 
 require_once('framework/includes/SG_Util.php');
