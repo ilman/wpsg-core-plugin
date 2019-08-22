@@ -18,12 +18,14 @@ class SG_CptSnippet
 					'search_items' => __('Search Snippet', 'wpsg_core'),
 					'not_found' => __('No snippet found', 'wpsg_core'),
 				),
-				'public' => true,
 				'supports' => array('title', 'editor'),
-				'exclude_from_search' => true,
 				'menu_position' => 100,
+				'show_ui' => true,
+				'public' => false,
+				'exclude_from_search' => true,
 				'publicly_queryable' => false,
-				'query_var' => false
+				'query_var' => false,
+
 
 			)
 		);
@@ -34,7 +36,7 @@ class SG_CptSnippet
 	// Modify save datas
 
 	static function save($post_id){
-		if(isset($_POST['post_type']) && $_POST['post_type'] != 'sg_cpt_snippet'){
+		if(!isset($_POST['post_type']) || $_POST['post_type'] != 'sg_cpt_snippet'){
 		  return;
 		}
 

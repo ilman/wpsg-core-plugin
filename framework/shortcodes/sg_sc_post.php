@@ -323,6 +323,15 @@ function sc_sg_post_single($attr=array(), $content=null){
 		}		
 	}
 
+	// visual composer
+	if(class_exists('Vc_Base')){
+		$vc_base = new Vc_Base;
+
+		if(method_exists($vc_base, 'addFrontCss')){
+			$vc_base->addFrontCss(get_the_ID());
+		}
+	}
+
 	return $output;
 }
 add_shortcode('sg_post_single', 'sc_sg_post_single');
