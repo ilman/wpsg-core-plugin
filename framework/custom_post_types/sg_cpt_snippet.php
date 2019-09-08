@@ -21,12 +21,11 @@ class SG_CptSnippet
 				'supports' => array('title', 'editor'),
 				'menu_position' => 100,
 				'show_ui' => true,
-				'public' => false,
+				'public' => true,
 				'exclude_from_search' => true,
 				'publicly_queryable' => false,
 				'query_var' => false,
-
-
+				'rewrite' => false,
 			)
 		);
 	}
@@ -37,7 +36,7 @@ class SG_CptSnippet
 
 	static function save($post_id){
 		if(!isset($_POST['post_type']) || $_POST['post_type'] != 'sg_cpt_snippet'){
-		  return;
+		  	return;
 		}
 
 		$data = array(
@@ -46,6 +45,7 @@ class SG_CptSnippet
 
 		if(isset($_REQUEST['post_title'])){
 			$data['post_title'] = SG_Util::slug($_REQUEST['post_title']);
+			$data['post_name'] = $data['post_title'];
 		}
 
 		// unhook this function so it doesn't loop infinitely
