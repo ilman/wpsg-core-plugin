@@ -24,7 +24,7 @@ class WPSGVCMetabox extends WPSGMetabox
 			
 		);
 
-		echo '<div class="tui-metabox">';
+		echo '<div class="wpsg-metabox">';
 		echo '<dl class="form-table">';
 		foreach($fields as $idx=>$field){
 
@@ -41,14 +41,6 @@ class WPSGVCMetabox extends WPSGMetabox
 		}
 		echo '</dl>';
 		echo '</div>';
-
-		echo "<style>
-			.tui-metabox dl dt{ font-weight:bold; margin-bottom:5px; }
-			.tui-metabox dl dd{ margin-left:0; }
-			.tui-metabox .field-desc{ margin-top:5px; color:#999; font-size:0.9em; line-height:1.4em; font-style:italic; }
-			.tui-metabox .alert-info{ color:#0c5460; background-color:#d1ecf1; border:#bee5eb solid 1px; padding:10px; }
-			.tui-metabox .form-table .alert-info{ margin-left:-10px; margin-right:-10px; }
-		</style>";
 	}
 
 	function wp_head()

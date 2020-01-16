@@ -136,14 +136,12 @@ if(!function_exists('wpsg_vc_template_field')){
 	}
 }
 
-require_once('includes/init.php');
-
 require_once('framework/includes/SG_Util.php');
 require_once('framework/includes/WPSG_Helpers_Lite.php');
 
 require_once('framework/plugins/sg_popular_posts/sg_popular_posts.php');
 require_once('framework/plugins/sg_related_posts/sg_related_posts.php');
-require_once('framework/plugins/sg_user_avatar/sg_user_avatar.php');
+// require_once('framework/plugins/sg_user_avatar/sg_user_avatar.php');
 
 require_once('shortcodes/sg_sc_framework.php');
 require_once('shortcodes/sg_sc_framework_block.php');
@@ -154,6 +152,9 @@ require_once('shortcodes/sg_sc_wp.php');
 
 require_once('framework/custom_post_types/sg_cpt_snippet.php');
 
+require_once('includes/init.php');
+require_once('includes/wpsg_metabox.php');
+require_once('includes/wp_metaboxes.php');
 
 require_once('visual_composer/vc.php');
 $includes = array('vc_number_param','vc_heading','vc_btn','vc_icon_block','vc_image_block','vc_carousels','vc_carousel_item','vc_multi_list','vc_multi_list_item','vc_faqs','vc_faq_item','vc_shortcode');

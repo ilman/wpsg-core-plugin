@@ -10,7 +10,7 @@ window.vc || (window.vc = {}),
     function($) {
         "use strict";
         var Shortcodes = vc.shortcodes;
-        window.VcTUIPartnersCarouselsView = vc.shortcode_view.extend({
+        window.VcWPSGCarouselsView = vc.shortcode_view.extend({
             change_columns_layout: !1,
             events: {
                 'click > .vc_controls [data-vc-control="delete"]': "deleteShortcode",
@@ -70,7 +70,7 @@ window.vc || (window.vc = {}),
             designHelpersSelector: "> .vc_controls .column_toggle",
             buildDesignHelpers: function() {
                 var css, $elementToPrepend, image, color, rowId, matches;
-                css = this.model.getParam("css"), $elementToPrepend = this.$el.find(this.designHelpersSelector), this.$el.find("> .vc_controls .tuipartners_carousel_color").remove(), this.$el.find("> .vc_controls .tuipartners_carousel_image").remove(), (matches = css.match(/background\-image:\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (image = matches[1]), (matches = css.match(/background\-color:\s*([^\s\;]+)\b/)) && !_.isUndefined(matches[1]) && (color = matches[1]), (matches = css.match(/background:\s*([^\s]+)\b\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (color = matches[1], image = matches[2]), rowId = this.model.getParam("el_id"), this.$el.find("> .vc_controls .tuipartners_carousel-hash-id").remove(), _.isEmpty(rowId) || $('<span class="tuipartners_carousel-hash-id"></span>').text("#" + rowId).insertAfter($elementToPrepend), image && $('<span class="tuipartners_carousel_image" style="background-image: url(' + image + ');" title="' + window.i18nLocale.row_background_image + '"></span>').insertAfter($elementToPrepend), color && $('<span class="tuipartners_carousel_color" style="background-color: ' + color + '" title="' + window.i18nLocale.row_background_color + '"></span>').insertAfter($elementToPrepend)
+                css = this.model.getParam("css"), $elementToPrepend = this.$el.find(this.designHelpersSelector), this.$el.find("> .vc_controls .wpsg_carousel_color").remove(), this.$el.find("> .vc_controls .wpsg_carousel_image").remove(), (matches = css.match(/background\-image:\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (image = matches[1]), (matches = css.match(/background\-color:\s*([^\s\;]+)\b/)) && !_.isUndefined(matches[1]) && (color = matches[1]), (matches = css.match(/background:\s*([^\s]+)\b\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (color = matches[1], image = matches[2]), rowId = this.model.getParam("el_id"), this.$el.find("> .vc_controls .wpsg_carousel-hash-id").remove(), _.isEmpty(rowId) || $('<span class="wpsg_carousel-hash-id"></span>').text("#" + rowId).insertAfter($elementToPrepend), image && $('<span class="wpsg_carousel_image" style="background-image: url(' + image + ');" title="' + window.i18nLocale.row_background_image + '"></span>').insertAfter($elementToPrepend), color && $('<span class="wpsg_carousel_color" style="background-color: ' + color + '" title="' + window.i18nLocale.row_background_color + '"></span>').insertAfter($elementToPrepend)
             },
             addElement: function(e) {
                 e && e.preventDefault && e.preventDefault(), Shortcodes.create({
@@ -80,10 +80,10 @@ window.vc || (window.vc = {}),
                 }), this.setActiveLayoutButton(), this.$el.removeClass("vc_collapsed-row")
             },
             getChildTag: function() {
-                // return "tuipartners_carousel_inner" === this.model.get("shortcode") ? "tuipartners_carousel_item_inner" : "tuipartners_carousel_item"
-                return "tuipartners_carousel_item";
+                // return "wpsg_carousel_inner" === this.model.get("shortcode") ? "sg_carousel_item_inner" : "sg_carousel_item"
+                return "sg_carousel_item";
             },
-            sortingSelector: "> [data-element_type=tuipartners_carousel_item], > [data-element_type=tuipartners_carousel_item_inner]",
+            sortingSelector: "> [data-element_type=sg_carousel_item], > [data-element_type=sg_carousel_item_inner]",
             sortingSelectorCancel: ".vc-non-draggable-column",
             setSorting: function() {
                 if (vc_user_access().partAccess("dragndrop")) {
@@ -167,7 +167,7 @@ window.vc || (window.vc = {}),
             },
             sizeRows: function() {
                 var max_height = 45;
-                $("> .wpb_tuipartners_carousel_item, > .wpb_tuipartners_carousel_item_inner", this.$content).each(function() {
+                $("> .wpb_sg_carousel_item, > .wpb_sg_carousel_item_inner", this.$content).each(function() {
                     var content_height = $(this).find("> .wpb_element_wrapper > .wpb_column_container").css({
                         minHeight: 0
                     }).height();
@@ -203,7 +203,7 @@ window.vc || (window.vc = {}),
         }), 
 
 
-        window.VcTUIPartnersCarouselItemView = vc.shortcode_view.extend({
+        window.VcWPSGCarouselItemView = vc.shortcode_view.extend({
             events: {
                 'click > .vc_controls [data-vc-control="delete"]': "deleteShortcode",
                 'click > .vc_controls [data-vc-control="add"]': "addElement",
@@ -213,19 +213,19 @@ window.vc || (window.vc = {}),
             },
             current_column_width: !1,
             initialize: function(options) {
-                window.VcTUIPartnersCarouselItemView.__super__.initialize.call(this, options), _.bindAll(this, "setDropable", "dropButton")
+                window.VcWPSGCarouselItemView.__super__.initialize.call(this, options), _.bindAll(this, "setDropable", "dropButton")
             },
             render: function() {
-                return window.VcTUIPartnersCarouselItemView.__super__.render.call(this), this.current_column_width = this.model.get("params").width || "1/1", this.$el.attr("data-width", this.current_column_width), this.setEmpty(), this
+                return window.VcWPSGCarouselItemView.__super__.render.call(this), this.current_column_width = this.model.get("params").width || "1/1", this.$el.attr("data-width", this.current_column_width), this.setEmpty(), this
             },
             changeShortcodeParams: function(model) {
-                window.VcTUIPartnersCarouselItemView.__super__.changeShortcodeParams.call(this, model), this.setColumnClasses(), this.buildDesignHelpers()
+                window.VcWPSGCarouselItemView.__super__.changeShortcodeParams.call(this, model), this.setColumnClasses(), this.buildDesignHelpers()
             },
             designHelpersSelector: "> .vc_controls .column_add",
             buildDesignHelpers: function() {
                 var matches, image, color, css = this.model.getParam("css"),
                     $column_toggle = this.$el.find(this.designHelpersSelector).get(0);
-                this.$el.find("> .vc_controls .tuipartners_carousel_item_color").remove(), this.$el.find("> .vc_controls .tuipartners_carousel_item_image").remove(), (matches = css.match(/background\-image:\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (image = matches[1]), (matches = css.match(/background\-color:\s*([^\s\;]+)\b/)) && !_.isUndefined(matches[1]) && (color = matches[1]), (matches = css.match(/background:\s*([^\s]+)\b\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (color = matches[1], image = matches[2]), image && $('<span class="tuipartners_carousel_item_image" style="background-image: url(' + image + ');" title="' + i18nLocale.column_background_image + '"></span>').insertBefore($column_toggle), color && $('<span class="tuipartners_carousel_item_color" style="background-color: ' + color + '" title="' + i18nLocale.column_background_color + '"></span>').insertBefore($column_toggle)
+                this.$el.find("> .vc_controls .sg_carousel_item_color").remove(), this.$el.find("> .vc_controls .sg_carousel_item_image").remove(), (matches = css.match(/background\-image:\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (image = matches[1]), (matches = css.match(/background\-color:\s*([^\s\;]+)\b/)) && !_.isUndefined(matches[1]) && (color = matches[1]), (matches = css.match(/background:\s*([^\s]+)\b\s*url\(([^\)]+)\)/)) && !_.isUndefined(matches[1]) && (color = matches[1], image = matches[2]), image && $('<span class="sg_carousel_item_image" style="background-image: url(' + image + ');" title="' + i18nLocale.column_background_image + '"></span>').insertBefore($column_toggle), color && $('<span class="sg_carousel_item_color" style="background-color: ' + color + '" title="' + i18nLocale.column_background_color + '"></span>').insertBefore($column_toggle)
             },
             setColumnClasses: function() {
                 var current_css_class_width, offset = this.model.getParam("offset") || "",
@@ -239,7 +239,7 @@ window.vc || (window.vc = {}),
             setDropable: function() {
                 return this.$content.droppable({
                     greedy: !0,
-                    accept: "tuipartners_carousel_item_inner" === this.model.get("shortcode") ? ".dropable_el" : ".dropable_el,.dropable_row",
+                    accept: "sg_carousel_item_inner" === this.model.get("shortcode") ? ".dropable_el" : ".dropable_el,.dropable_row",
                     hoverClass: "wpb_ui-state-active",
                     drop: this.dropButton
                 }), this
@@ -267,11 +267,11 @@ window.vc || (window.vc = {}),
                 return row_params = {}, column_params = {
                     width: "1/1"
                 }, row = Shortcodes.create({
-                    shortcode: "tuipartners_carousel_inner",
+                    shortcode: "wpsg_carousel_inner",
                     params: row_params,
                     parent_id: this.model.id
                 }), Shortcodes.create({
-                    shortcode: "tuipartners_carousel_item_inner",
+                    shortcode: "sg_carousel_item_inner",
                     params: column_params,
                     parent_id: row.id
                 }), row
@@ -288,7 +288,7 @@ window.vc || (window.vc = {}),
                 if (e && e.preventDefault && e.preventDefault(), !0 !== confirm(window.i18nLocale.press_ok_to_delete_section)) return !1;
                 this.model.destroy(), parent_id && !vc.shortcodes.where({
                     parent_id: parent_id
-                }).length ? (parent = vc.shortcodes.get(parent_id), _.contains(["tuipartners_carousel_item", "tuipartners_carousel_item_inner"], parent.get("shortcode")) || parent.destroy()) : parent_id && (parent = vc.shortcodes.get(parent_id)) && parent.view && parent.view.setActiveLayoutButton && parent.view.setActiveLayoutButton()
+                }).length ? (parent = vc.shortcodes.get(parent_id), _.contains(["sg_carousel_item", "sg_carousel_item_inner"], parent.get("shortcode")) || parent.destroy()) : parent_id && (parent = vc.shortcodes.get(parent_id)) && parent.view && parent.view.setActiveLayoutButton && parent.view.setActiveLayoutButton()
             },
             remove: function() {
                 this.$content && this.$content.data("uiSortable") && this.$content.sortable("destroy"), this.$content && this.$content.data("uiDroppable") && this.$content.droppable("destroy"), delete vc.app.views[this.model.id], window.VcColumnView.__super__.remove.call(this)

@@ -1,0 +1,8 @@
+.wpsg-metabox dl dt{ font-weight:bold; margin-bottom:5px; }
+.wpsg-metabox dl dd{ margin-left:0; }
+.wpsg-metabox .field-desc{ margin-top:5px; color:#999; font-size:0.9em; line-height:1.4em; font-style:italic; }
+.wpsg-metabox .alert-info{ color:#0c5460; background-color:#d1ecf1; border:#bee5eb solid 1px; padding:10px; }
+.wpsg-metabox .form-table .alert-info{ margin-left:-10px; margin-right:-10px; }
+
+div.postbox[id^=wpsg_] .hndle{ background:#000; color:#fff; }
+div.postbox[id^=wpsg_] .handlediv .toggle-indicator{ color:#fff; }
