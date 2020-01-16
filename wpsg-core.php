@@ -157,7 +157,7 @@ require_once('includes/wpsg_metabox.php');
 require_once('includes/wp_metaboxes.php');
 
 require_once('visual_composer/vc.php');
-$includes = array('vc_number_param','vc_heading','vc_btn','vc_icon_block','vc_image_block','vc_carousels','vc_carousel_item','vc_multi_list','vc_multi_list_item','vc_faqs','vc_faq_item','vc_shortcode');
+$includes = array('vc_number_param','vc_heading','vc_btn','vc_icon_block','vc_image_block',/*'vc_carousels','vc_carousel_item',*/'vc_multi_list','vc_multi_list_item','vc_faqs','vc_faq_item','vc_shortcode');
 foreach($includes as $file){
 	$file = __DIR__.'/visual_composer/'.$file.'.php';
 	if(!file_exists($file)){ continue; }
