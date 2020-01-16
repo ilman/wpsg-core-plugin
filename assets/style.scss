@@ -25,15 +25,18 @@
 
 	.thumb-over{ position:absolute; left:50%; top:0; transform:translate(-50%, -50%); }
 
-	&.bordered{
+	&.boxed{
 		&{ background:#fff; }
 		>.block-body{ padding:15px; }
 		>.block-footer{ padding:5px 15px; }
 	}
 
-	&.padded{
-		>.block-body{ padding:0; }
-		>.block-footer{ padding:0; }
+	&.bordered{
+		&{ background:#fff; padding:15px; border:#ddd solid 1px; }
+		&.boxed{
+			>.block-body{ padding:0; }
+			>.block-footer{ padding:5px 0; border-top:#ddd solid 1px; }
+		}
 	}
 
 	&.body-overlay >.block-body, .block-thumb-overlay{

@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGHeadingAddons
 {
-	public $shortcode_slug = 'wpsg_heading';
+	public $shortcode_slug = 'sg_heading';
 
 	function __construct()
 	{
@@ -98,7 +98,7 @@ class VCWPSGHeadingAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-heading '.$class);
+		$class = trim('sg-heading '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 

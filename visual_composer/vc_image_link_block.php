@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGImageLinkBlockAddons
 {
-	public $shortcode_slug = 'wpsg_image_link_block';
+	public $shortcode_slug = 'sg_image_link_block';
 
 	function __construct()
 	{
@@ -121,7 +121,7 @@ class VCWPSGImageLinkBlockAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-image-link-block '.$class);
+		$class = trim('sg-image-link-block '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 

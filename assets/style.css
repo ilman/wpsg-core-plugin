@@ -59,20 +59,26 @@
   top: 0;
   transform: translate(-50%, -50%);
 }
-.sg-block.bordered {
+.sg-block.boxed {
   background: #fff;
 }
-.sg-block.bordered > .block-body {
+.sg-block.boxed > .block-body {
   padding: 15px;
 }
-.sg-block.bordered > .block-footer {
+.sg-block.boxed > .block-footer {
   padding: 5px 15px;
 }
-.sg-block.padded > .block-body {
+.sg-block.bordered {
+  background: #fff;
+  padding: 15px;
+  border: #ddd solid 1px;
+}
+.sg-block.bordered.boxed > .block-body {
   padding: 0;
 }
-.sg-block.padded > .block-footer {
-  padding: 0;
+.sg-block.bordered.boxed > .block-footer {
+  padding: 5px 0;
+  border-top: #ddd solid 1px;
 }
 .sg-block.body-overlay > .block-body, .sg-block .block-thumb-overlay {
   position: absolute;

@@ -4,15 +4,27 @@
 	if($image){
 		$image_url = @$image[0];
 	}
+
+	$class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 ?>
-<a class="<?php echo trim('image-link-card '.$class) ?>" href="<?php echo $url ?>">
-	<div class="image-link-card__img" data-lazy-srcset="" style="background-image: url(<?php echo $image_url ?>);"></div>
-	<div class="image-link-card__text">
-		<span class="image-link-card__title">
-			<?php echo $title ?>
-			<svg class="inline-icon inline-icon--x-small inline-icon__outline inline-icon__outline--white" viewBox="0 0 24 24">
-				<path stroke-miterlimit="10" d="M7 2l10 10L7 22" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
-			</svg>
-		</span>
+
+<?php ob_start(); ?>
+<div class="sg-block <?php echo $class ?>">
+	<div class="block-thumb">
+		<img src="<?php echo $image_url ?>" alt="image" />
 	</div>
-</a>
+	<div class="block-body">
+		<h4 class="title" data-mh="block-title"><?php echo $title ?></h4>
+		<?php echo $content ?>
+	</div>
+</div>
+<?php $output = ob_get_clean(); ?>
+
+<?php 
+	if($url){
+		echo '<a class="block-link" href="'.$url.'">'.$output.'</a>';
+	}
+	else{
+		echo $output;
+	}
+?>

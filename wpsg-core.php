@@ -125,7 +125,7 @@ require_once('framework/custom_post_types/sg_cpt_snippet.php');
 
 
 require_once('visual_composer/vc.php');
-$includes = array('vc_number_param','vc_heading','vc_button','vc_faqs','vc_faq_item','vc_icon_link_card','vc_image_link_card','vc_carousels','vc_carousel_item','vc_multi_list','vc_multi_list_item');
+$includes = array('vc_number_param','vc_heading','vc_button','vc_faqs','vc_faq_item','vc_icon_link_block','vc_image_link_block','vc_carousels','vc_carousel_item','vc_multi_list','vc_multi_list_item');
 foreach($includes as $file){
 	$file = __DIR__.'/visual_composer/'.$file.'.php';
 	if(!file_exists($file)){ continue; }

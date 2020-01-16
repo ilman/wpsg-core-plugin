@@ -10,10 +10,27 @@
 		$icon_inline = @base64_decode($icon_inline);
 		$icon_inline = @urldecode($icon_inline);
 	}
+
+	$class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 ?>
 
-<div class="overview-section">
-	<div class="overview-section__icon"><?php echo $icon_inline ?></div>
-	<div class="overview-section__heading"><?php echo $title ?></div>
-	<div class="overview-section__content"><?php echo $content ?></div>
+<?php ob_start(); ?>
+<div class="sg-block <?php echo $class ?>">
+	<div class="block-thumb">
+		<?php echo $icon_inline ?>
+	</div>
+	<div class="block-body">
+		<h4 class="title" data-mh="block-title"><?php echo $title ?></h4>
+		<?php echo $content ?>
+	</div>
 </div>
+<?php $output = ob_get_clean(); ?>
+
+<?php 
+	if($url){
+		echo '<a class="block-link" href="'.$url.'">'.$output.'</a>';
+	}
+	else{
+		echo $output;
+	}
+?>
