@@ -35,6 +35,8 @@ class VCWPSGMultiListAddons
 
 			'params' => array(
 
+				wpsg_vc_template_field($this->shortcode_slug, ['excludes'=>'item']),
+
 				array(
 					'type' => 'textfield',
 					'heading' => 'Class',
@@ -67,6 +69,7 @@ class VCWPSGMultiListAddons
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
 			'class' => '',
+			'id' => '',
 			'template' => '',
 		), $attr));
 
@@ -78,6 +81,32 @@ class VCWPSGMultiListAddons
 
 		// set default template file
 		$template_paths = wpsg_shortcode_template_paths($this->shortcode_slug, $template, __FILE__);
+
+		// setup
+		global $multi_list_id;
+		global $multi_list_item_id;
+		if(!isset($multi_list_id) || !$multi_list_id){
+			$multi_list_id = 0;
+		}
+		$multi_list_id++;
+		$multi_list_item_id = 0;
+
+		preg_match_all('/\[sg_multi_list_item [^\]]*?title="([^\"]+?)"\]/', $content, $matches);
+
+		$titles = array();
+		if(isset($matches[1]) && $matches[1]){
+			$titles[] = $matches[1];
+		}
+
+		preg_match_all('/\[sg_multi_list_item [^\]]*?template="([^\"]+?)"\]/', $content, $matches);
+
+		if(isset($matches[1]) && $matches[1]){
+			$content = preg_replace('/template="[^\"]+"/', 'template="'.$template.'"', $content);
+		}
+		else{
+			$content = str_replace('[sg_multi_list_item', '[sg_multi_list_item template="'.$template.'"', $content);
+		}
+		// end setup
 		
 		$output = include(wpsg_core_plugin_path().'/output.php');
 

@@ -21,8 +21,11 @@ function wpsg_core_plugin_path(){
 function wpsg_shortcode_template_paths($key, $template='default', $base_path=null){
 	if(!$base_path){
 		$base_path = __FILE__;
+		$base_dir = $base_path;
 	}
-	$base_dir = dirname($base_path);
+	else{
+		$base_dir = dirname($base_path);
+	}
 
 	// set default template file
 	$template_plugin_path = dirname($base_dir).'/templates/'.$key.'_'.$template.'.php';
@@ -54,8 +57,11 @@ if(!function_exists('wpsg_get_template_files')){
 		$base_dir = dirname($base_path);
 
 		// set default template file
-		$template_plugin_path = dirname($base_dir).'/templates/';
-		$template_theme_path = realpath(get_stylesheet_directory()).'/'.basename(dirname($base_dir)).'/';
+		$template_paths = wpsg_shortcode_template_paths('sg_multi_list');
+
+		// set default template file
+		$template_plugin_path = dirname($template_paths['template_plugin_path']);
+		$template_theme_path = dirname($template_paths['template_theme_path']);
 
 		$result = array();
 
@@ -89,11 +95,36 @@ if(!function_exists('wpsg_get_template_files')){
 }
 
 if(!function_exists('wpsg_vc_template_field')){
-	function wpsg_vc_template_field($key){
+	function wpsg_vc_template_field($key, $params=array()){
 		$options = array();
+
+		if(isset($params['excludes'])){
+			if(is_string($params['excludes'])){
+				$params['excludes'] = explode(',', $params['excludes']);
+			}
+		}
+
 		foreach(wpsg_get_template_files($key) as $row){
+			if(isset($params['excludes']) && $params['excludes']){
+				$is_excluded = false;
+
+				foreach($params['excludes'] as $exclude){
+					$exclude = trim($exclude);
+
+					if(stripos($row, $exclude) === 0){
+						$is_excluded = true;
+						break;
+					}
+				}
+
+				if($is_excluded){
+					continue;
+				}
+			}
 			$options[$row] = ($row=='default') ? '' : $row;
 		}
+
+		sort($options);
 
 		return array(
 			'type' => 'dropdown',

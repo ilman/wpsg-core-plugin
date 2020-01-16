@@ -83,6 +83,32 @@ class VCWPSGFaqsAddons
 
 		// set default template file
 		$template_paths = wpsg_shortcode_template_paths($this->shortcode_slug, $template, __FILE__);
+
+		// setup
+		global $faq_list_id;
+		global $faq_list_item_id;
+		if(!isset($faq_list_id) || !$faq_list_id){
+			$faq_list_id = 0;
+		}
+		$faq_list_id++;
+		$faq_list_item_id = 0;
+
+		preg_match_all('/\[sg_faq_item [^\]]*?title="([^\"]+?)"\]/', $content, $matches);
+
+		$titles = array();
+		if(isset($matches[1]) && $matches[1]){
+			$titles[] = $matches[1];
+		}
+
+		preg_match_all('/\[sg_faq_item [^\]]*?template="([^\"]+?)"\]/', $content, $matches);
+
+		if(isset($matches[1]) && $matches[1]){
+			$content = preg_replace('/template="[^\"]+"/', 'template="'.$template.'"', $content);
+		}
+		else{
+			$content = str_replace('[sg_faq_item', '[sg_faq_item template="'.$template.'"', $content);
+		}
+		// end setup
 		
 		$output = include(wpsg_core_plugin_path().'/output.php');
 

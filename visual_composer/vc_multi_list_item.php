@@ -85,6 +85,16 @@ class VCWPSGMultiListItemAddons
 
 		// set default template file
 		$template_paths = wpsg_shortcode_template_paths($this->shortcode_slug, $template, __FILE__);
+
+		// setup
+		global $multi_list_id;
+		global $multi_list_item_id;
+		$multi_list_item_id++;
+
+		if(!$title){
+			$title = 'Item '.$multi_list_item_id;
+		}
+		// end setup
 		
 		$output = include(wpsg_core_plugin_path().'/output.php');
 
