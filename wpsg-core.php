@@ -105,6 +105,8 @@ if(!function_exists('wpsg_vc_template_field')){
 	}
 }
 
+require_once('includes/init.php');
+
 require_once('framework/includes/SG_Util.php');
 require_once('framework/includes/WPSG_Helpers_Lite.php');
 

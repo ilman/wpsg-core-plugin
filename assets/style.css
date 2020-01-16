@@ -1,0 +1,142 @@
+.sg-nav .menu {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  clear: none;
+}
+.sg-nav .menu li {
+  display: inline-block;
+}
+.sg-nav nav {
+  margin: 0;
+  padding: 0;
+}
+.sg-nav nav > * {
+  float: left;
+}
+.sg-nav a, .sg-nav span {
+  display: inline-block;
+  padding: 8px 10px;
+  height: 34px;
+}
+.sg-nav a > span {
+  padding: 0;
+}
+
+.sg-center {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.sg-center .center-y {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.sg-abs-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sg-block {
+  position: relative;
+}
+.sg-block img {
+  max-width: 100%;
+}
+.sg-block > .block-thumb {
+  position: relative;
+}
+.sg-block > .block-body {
+  position: relative;
+}
+.sg-block .thumb-over {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+.sg-block.bordered {
+  background: #fff;
+}
+.sg-block.bordered > .block-body {
+  padding: 15px;
+}
+.sg-block.bordered > .block-footer {
+  padding: 5px 15px;
+}
+.sg-block.padded > .block-body {
+  padding: 0;
+}
+.sg-block.padded > .block-footer {
+  padding: 0;
+}
+.sg-block.body-overlay > .block-body, .sg-block .block-thumb-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+.sg-block.body-overlay > .block-body a, .sg-block .block-thumb-overlay a {
+  color: #fff;
+}
+.sg-block.block-hor {
+  display: table;
+}
+.sg-block.block-hor > div {
+  display: table-cell;
+  vertical-align: top;
+}
+.sg-block.block-hor > .block-body {
+  padding-left: 15px;
+}
+.sg-block.block-hor > .block-thumb {
+  margin: 0;
+}
+.sg-block.block-hor.split > div {
+  width: 50%;
+}
+.sg-block.block-ver .block-thumb {
+  margin-bottom: 20px;
+}
+.sg-block .block-action {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.sg-block .block-action.bottom {
+  top: auto;
+  bottom: 15px;
+}
+
+@media (max-width: 640px) {
+  .sg-block.block-hor.break-sm {
+    display: block;
+  }
+  .sg-block.block-hor.break-sm > div {
+    display: block;
+  }
+  .sg-block.block-hor.break-sm > .block-body {
+    padding: 0;
+  }
+}
+.block-meta.inline-table {
+  display: table;
+}
+.block-meta.inline-table > .meta {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 15px;
+}
+.block-meta.inline-table > .meta img, .block-meta.inline-table > .meta .icon {
+  margin-right: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
