@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGShortcodeAddons
 {
-	public $shortcode_slug = 'wpsg_shortcode';
+	public $shortcode_slug = 'sg_shortcode';
 
 	function __construct()
 	{
@@ -24,10 +24,10 @@ class VCWPSGShortcodeAddons
 			'name' => 'WPSG Shortcode',
 			'base' => $this->shortcode_slug,
 			'category' => 'WPSG',
-			'icon' => plugins_url('../assets/favicon.png', __FILE__),
+			'icon' => plugins_url('assets/favicon.png', __DIR__),
+			'weight' => 9,
+			
 			'params' => array(
-				
-
 				array(
 					'type' => 'textarea',
 					'heading' => 'Content',
@@ -42,7 +42,31 @@ class VCWPSGShortcodeAddons
 					'type' => 'textfield',
 					'heading' => 'Class',
 					'param_name' => 'class',
-					'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS.',
+					'admin_label' => true,
+					'group' => 'Attributes',
+				),
+
+				array(
+					'type' => 'textfield',
+					'heading' => 'Container Class',
+					'param_name' => 'container_class',
+					'admin_label' => true,
+					'group' => 'Attributes',
+				),
+
+				array(
+					'type' => 'textfield',
+					'heading' => 'ID',
+					'param_name' => 'id',
+					'admin_label' => true,
+					'group' => 'Attributes',
+				),
+
+				array(
+					'type' => 'css_editor',
+					'heading' => esc_html__( 'CSS Box', 'js_composer' ),
+					'param_name' => 'css',
+					'group' => esc_html__( 'Design Options', 'js_composer' ),
 				),
 
 			),
@@ -56,7 +80,7 @@ class VCWPSGShortcodeAddons
 			'class' => '',
 		), $attr));
 
-		$class = trim('wpsg-shortcode '.$class);
+		$class = trim('sg-shortcode '.$class);
 
 		$output = '<div class="'.$class.'">
 			'.do_shortcode($content).'

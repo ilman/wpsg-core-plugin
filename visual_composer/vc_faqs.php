@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGFaqsAddons 
 {
-	public $shortcode_slug = 'wpsg_faqs';
+	public $shortcode_slug = 'sg_faqs';
 
 	function __construct()
 	{
@@ -26,7 +26,7 @@ class VCWPSGFaqsAddons
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
 			'weight' => 9,
 
-			'as_parent' 	=> array('only' => 'wpsg_faq_item'),
+			'as_parent' 	=> array('only' => 'sg_faq_item'),
 			'content_element' => true,
 			'is_container' => true,
 			'show_settings_on_create' => false,
@@ -77,7 +77,7 @@ class VCWPSGFaqsAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-faqs '.$class);
+		$class = trim('sg-faqs '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 

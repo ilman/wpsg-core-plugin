@@ -3,72 +3,47 @@
 // don't load directly
 if (!defined('ABSPATH')) die('-1');
 
-class VCWPSGImageLinkBlockAddons
-{
-	public $shortcode_slug = 'sg_image_link_block';
+class VCWPSGButtonAddons {
 
+	public $shortcode_slug = 'sg_btn';
+	
 	function __construct()
 	{
 		// We safely integrate with VC with this hook
 		add_action('init', array($this, 'integrateWithVC'));
+
 		add_shortcode($this->shortcode_slug, array($this, 'shortcode'));
 	}
 
 	public function integrateWithVC() 
 	{
 		// Check if Visual Composer is installed
-		if(!defined('WPB_VC_VERSION')){ return; }
+		if(!defined('WPB_VC_VERSION')) {
+			return;
+		}
 		
 		vc_map(array(
-			'name' => 'WPSG Image Link Block',
+			'name' => 'WPSG Button',
 			'base' => $this->shortcode_slug,
 			'category' => 'WPSG',
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
 			'weight' => 9,
-			
+
 			'params' => array(
-
+				
 				array(
 					'type' => 'textfield',
-					'heading' => 'Title',
-					'param_name' => 'title',
-					'admin_label' => true,
-				),
-
-				// array(
-				// 	'type' => 'textfield',
-				// 	'heading' => 'Title Tag',
-				// 	'param_name' => 'title_tag',
-				// 	'admin_label' => true,
-				// ),
-
-				array(
-					'type' => 'attach_image',
-					'heading' => 'Image',
-					'param_name' => 'image',
-					'value' => '',
-					'description' => 'Select image from media library.',
-					'admin_label' => true
-				),
-
-				array(
-					'type' => 'textfield',
-					'heading' => 'Link URL',
-					'param_name' => 'url',
-					'admin_label' => true,
-				),
-
-				array(
-					'type' => 'textarea_html',
-					'heading' => 'Content',
+					'heading' => 'Text',
 					'param_name' => 'content',
-					'value' => '',
-					'description' => 'Enter your content.',
 					'holder' => 'div',
-					'class' => '',
 				),
 
-				wpsg_vc_template_field($this->shortcode_slug),
+				array(
+					'type' => 'textfield',
+					'heading' => 'URL',
+					'param_name' => 'url',
+					'admin_label' => true
+				),				
 
 				// backward compatibility. since 4.6
 				array(
@@ -80,6 +55,14 @@ class VCWPSGImageLinkBlockAddons
 					'type' => 'textfield',
 					'heading' => 'Class',
 					'param_name' => 'class',
+					'admin_label' => true,
+					'group' => 'Attributes',
+				),
+
+				array(
+					'type' => 'textfield',
+					'heading' => 'Container Class',
+					'param_name' => 'container_class',
 					'admin_label' => true,
 					'group' => 'Attributes',
 				),
@@ -107,21 +90,20 @@ class VCWPSGImageLinkBlockAddons
 	{
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
-			'title' => '',
-			'title_tag' => 'h4',
-			'image' => '',
-			'image_size' => '',
-			'subtitle' => '',
+			'container_class' => '',
+			'class' => 'btn-primary',
 			'url' => '',
-			'class' => '',
-			'id' => '',
-			'style' => '',
-			'template' => 'default',
 		), $attr));
+
+		if(strpos($url, '//') === false){
+			if(strpos($url,'/') === 0){
+				$url = site_url().$url;
+			}
+		}
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('sg-image-link-block '.$class);
+		$class = trim('sg-btn '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 
@@ -132,7 +114,7 @@ class VCWPSGImageLinkBlockAddons
 
 		return $output;
 	}
-
 }
+
 // Finally initialize code
-new VCWPSGImageLinkBlockAddons();
+new VCWPSGButtonAddons();

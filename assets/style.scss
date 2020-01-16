@@ -16,8 +16,13 @@
 
 .sg-abs-center{ position:absolute; left:50%; top:50%; transform: translate(-50%, -50%); }
 
+.sg-heading{
+	&{ margin:1em 0; }
+	&:first-child{ margin-top:0; }
+}
+
 .sg-block{
-	position:relative;
+	&{ position:relative; margin-bottom:1em; }
 	img{ max-width:100%; }
 
 	>.block-thumb{ position:relative; }

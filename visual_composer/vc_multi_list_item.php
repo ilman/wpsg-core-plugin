@@ -3,7 +3,7 @@
 // don't load directly
 if (!defined('ABSPATH')) die('-1');
 
-class VCWPSGShortcodeAddons
+class VCWPSGMultiListItemAddons
 {
 	public $shortcode_slug = 'sg_multi_list_item';
 
@@ -93,4 +93,4 @@ class VCWPSGShortcodeAddons
 
 }
 // Finally initialize code
-new VCWPSGShortcodeAddons();
+new VCWPSGMultiListItemAddons();

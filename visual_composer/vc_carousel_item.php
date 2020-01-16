@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGCarouselItemAddons 
 {
-	public $shortcode_slug = 'wpsg_carousel_item';
+	public $shortcode_slug = 'sg_carousel_item';
 
 	function __construct()
 	{
@@ -29,7 +29,7 @@ class VCWPSGCarouselItemAddons
 			'category' => 'WPSG',
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
 
-			'as_child' 		=> array('only' => 'wpsg_carousels'),
+			'as_child' 		=> array('only' => 'sg_carousels'),
 			'content_element' => true,
 			'is_container' => true,
 			'show_settings_on_create' => false,
@@ -78,7 +78,7 @@ class VCWPSGCarouselItemAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-carousel-item '.$class);
+		$class = trim('sg-carousel-item '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 

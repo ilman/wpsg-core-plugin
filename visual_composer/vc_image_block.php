@@ -3,9 +3,9 @@
 // don't load directly
 if (!defined('ABSPATH')) die('-1');
 
-class VCWPSGIconLinkBlockAddons
+class VCWPSGImageLinkBlockAddons
 {
-	public $shortcode_slug = 'sg_icon_link_block';
+	public $shortcode_slug = 'sg_image_block';
 
 	function __construct()
 	{
@@ -20,7 +20,7 @@ class VCWPSGIconLinkBlockAddons
 		if(!defined('WPB_VC_VERSION')){ return; }
 		
 		vc_map(array(
-			'name' => 'WPSG Icon Link Block',
+			'name' => 'WPSG Image Link Block',
 			'base' => $this->shortcode_slug,
 			'category' => 'WPSG',
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
@@ -44,25 +44,16 @@ class VCWPSGIconLinkBlockAddons
 
 				array(
 					'type' => 'attach_image',
-					'heading' => 'Icon',
-					'param_name' => 'icon',
+					'heading' => 'Image',
+					'param_name' => 'image',
 					'value' => '',
-					'description' => 'Select icon from media library.',
+					'description' => 'Select image from media library.',
 					'admin_label' => true
 				),
 
 				array(
-					'type' => 'textarea_raw_html',
-					'heading' => 'Inline Icon',
-					'param_name' => 'icon_inline',
-					'value' => '',
-					'description' => 'HTML tag or svg tag for inline icon',
-					'admin_label' => false,
-				),
-
-				array(
 					'type' => 'textfield',
-					'heading' => 'URL',
+					'heading' => 'Link URL',
 					'param_name' => 'url',
 					'admin_label' => true,
 				),
@@ -74,6 +65,7 @@ class VCWPSGIconLinkBlockAddons
 					'value' => '',
 					'description' => 'Enter your content.',
 					'holder' => 'div',
+					'class' => '',
 				),
 
 				wpsg_vc_template_field($this->shortcode_slug),
@@ -115,10 +107,10 @@ class VCWPSGIconLinkBlockAddons
 	{
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
-			'icon' => '',
-			'icon_inline' => '',
 			'title' => '',
 			'title_tag' => 'h4',
+			'image' => '',
+			'image_size' => '',
 			'subtitle' => '',
 			'url' => '',
 			'class' => '',
@@ -129,7 +121,7 @@ class VCWPSGIconLinkBlockAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('sg-icon-link-block '.$class);
+		$class = trim('sg-image-block '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 
@@ -143,4 +135,4 @@ class VCWPSGIconLinkBlockAddons
 
 }
 // Finally initialize code
-new VCWPSGIconLinkBlockAddons();
+new VCWPSGImageLinkBlockAddons();

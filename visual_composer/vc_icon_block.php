@@ -3,10 +3,10 @@
 // don't load directly
 if (!defined('ABSPATH')) die('-1');
 
-class VCWPSGCardAddons 
+class VCWPSGIconLinkBlockAddons
 {
-	public $shortcode_slug = 'wpsg_card';
-	
+	public $shortcode_slug = 'sg_icon_block';
+
 	function __construct()
 	{
 		// We safely integrate with VC with this hook
@@ -20,14 +20,14 @@ class VCWPSGCardAddons
 		if(!defined('WPB_VC_VERSION')){ return; }
 		
 		vc_map(array(
-			'name' => 'WPSG Card',
+			'name' => 'WPSG Icon Link Block',
 			'base' => $this->shortcode_slug,
 			'category' => 'WPSG',
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
 			'weight' => 9,
 			
 			'params' => array(
-				
+
 				array(
 					'type' => 'textfield',
 					'heading' => 'Title',
@@ -35,20 +35,37 @@ class VCWPSGCardAddons
 					'admin_label' => true,
 				),
 
-				array(
-					'type' => 'textfield',
-					'heading' => 'Title Tag',
-					'param_name' => 'title_tag',
-					'description' => 'Default is h4.',
-					'admin_label' => true,
-				),
-
 				// array(
 				// 	'type' => 'textfield',
-				// 	'heading' => 'List Class',
-				// 	'param_name' => 'list_class',
+				// 	'heading' => 'Title Tag',
+				// 	'param_name' => 'title_tag',
 				// 	'admin_label' => true,
 				// ),
+
+				array(
+					'type' => 'attach_image',
+					'heading' => 'Icon',
+					'param_name' => 'icon',
+					'value' => '',
+					'description' => 'Select icon from media library.',
+					'admin_label' => true
+				),
+
+				array(
+					'type' => 'textarea_raw_html',
+					'heading' => 'Inline Icon',
+					'param_name' => 'icon_inline',
+					'value' => '',
+					'description' => 'HTML tag or svg tag for inline icon',
+					'admin_label' => false,
+				),
+
+				array(
+					'type' => 'textfield',
+					'heading' => 'URL',
+					'param_name' => 'url',
+					'admin_label' => true,
+				),
 
 				array(
 					'type' => 'textarea_html',
@@ -57,26 +74,9 @@ class VCWPSGCardAddons
 					'value' => '',
 					'description' => 'Enter your content.',
 					'holder' => 'div',
-					'class' => '',
 				),
 
 				wpsg_vc_template_field($this->shortcode_slug),
-
-				array(
-					'type' => 'textfield',
-					'heading' => 'Button Text',
-					'param_name' => 'btn_1_text',
-					'admin_label' => true,
-					'group' => 'Buttons',
-				),
-
-				array(
-					'type' => 'textfield',
-					'heading' => 'Button URL',
-					'param_name' => 'btn_1_url',
-					'admin_label' => true,
-					'group' => 'Buttons',
-				),
 
 				// backward compatibility. since 4.6
 				array(
@@ -115,12 +115,12 @@ class VCWPSGCardAddons
 	{
 		// extract the attributes into variables
 		extract(shortcode_atts(array(
+			'icon' => '',
+			'icon_inline' => '',
 			'title' => '',
 			'title_tag' => 'h4',
-			'list_class' => '',
-			'btn_1_text' => '',
-			'btn_1_url' => '',
-			'img_link_large' => '',
+			'subtitle' => '',
+			'url' => '',
 			'class' => '',
 			'id' => '',
 			'style' => '',
@@ -129,7 +129,7 @@ class VCWPSGCardAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-card '.$class);
+		$class = trim('sg-icon-block '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 
@@ -143,4 +143,4 @@ class VCWPSGCardAddons
 
 }
 // Finally initialize code
-new VCWPSGCardAddons();
+new VCWPSGIconLinkBlockAddons();

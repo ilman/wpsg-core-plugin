@@ -1,17 +1,23 @@
 <?php 
-	$image_size = ($image_size) ? $image_size : 'full';
-	$image = wp_get_attachment_image_src($image, $image_size);
-	if($image){
-		$image_url = @$image[0];
+	if(!$icon_inline && $icon){
+		$icon_size = ($icon_size) ? $icon_size : 'full';
+		$icon = wp_get_attachment_icon_src($icon, $icon_size);
+
+		$icon_inline = @$icon[0];
+		$icon_inline = '<img src="'.$icon_inline.'" alt="image" />';
+	}
+	elseif($icon_inline){
+		$icon_inline = @base64_decode($icon_inline);
+		$icon_inline = @urldecode($icon_inline);
 	}
 
 	$class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 ?>
 
 <?php ob_start(); ?>
-<div class="sg-block <?php echo $class ?>">
+<div class="sg-block <?php echo $class ?>" data-mh="block">
 	<div class="block-thumb">
-		<img src="<?php echo $image_url ?>" alt="image" />
+		<?php echo $icon_inline ?>
 	</div>
 	<div class="block-body">
 		<h4 class="title" data-mh="block-title"><?php echo $title ?></h4>

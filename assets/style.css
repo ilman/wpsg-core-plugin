@@ -41,8 +41,16 @@
   transform: translate(-50%, -50%);
 }
 
+.sg-heading {
+  margin: 1em 0;
+}
+.sg-heading:first-child {
+  margin-top: 0;
+}
+
 .sg-block {
   position: relative;
+  margin-bottom: 1em;
 }
 .sg-block img {
   max-width: 100%;

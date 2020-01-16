@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) die('-1');
 
 class VCWPSGCarouselsAddons
 {
-	public $shortcode_slug = 'wpsg_carousels';
+	public $shortcode_slug = 'sg_carousels';
 
 	function __construct()
 	{
@@ -30,7 +30,7 @@ class VCWPSGCarouselsAddons
 			'icon' => plugins_url('assets/favicon.png', __DIR__),
 			'weight' => 9,
 
-			'as_parent' 	=> array('only' => 'wpsg_carousel_item'),
+			'as_parent' 	=> array('only' => 'sg_carousel_item'),
 			'content_element' => true,
 			'is_container' => true,
 			'show_settings_on_create' => false,
@@ -38,7 +38,7 @@ class VCWPSGCarouselsAddons
 			'js_view' => 'VcColumnView',
 			'class' => 'vc_wpsg_container',
 
-			'default_content' => '[wpsg_carousel_item][/wpsg_carousel_item]',
+			'default_content' => '[sg_carousel_item][/sg_carousel_item]',
 
 			'params' => array(
 
@@ -109,7 +109,7 @@ class VCWPSGCarouselsAddons
 
 		$template = ($template) ? $template : 'default';
 
-		$class = trim('wpsg-carousels '.$class);
+		$class = trim('sg-carousels '.$class);
 		// $class = ($content) ? trim($class.' with-content') : trim($class.' no-content');
 		$class = trim($class.' '.$template);
 
