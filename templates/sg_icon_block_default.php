@@ -1,6 +1,6 @@
 <?php 
 	if(!$icon_inline && $icon){
-		$icon_size = ($icon_size) ? $icon_size : 'full';
+		$icon_size = ($icon_size) ? $icon_size : 'medium';
 		$icon = wp_get_attachment_icon_src($icon, $icon_size);
 
 		$icon_inline = @$icon[0];

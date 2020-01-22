@@ -1,5 +1,5 @@
 <?php 
-	$image_size = ($image_size) ? $image_size : 'full';
+	$image_size = ($image_size) ? $image_size : 'medium';
 	$image = wp_get_attachment_image_src($image, $image_size);
 	if($image){
 		$image_url = @$image[0];
