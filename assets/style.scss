@@ -194,3 +194,8 @@
 		color: #5a5243
 	}
 }
+
+.sg-image-block.default{
+	.block-thumb{ background-size:cover; }
+	.block-thumb img{ opacity:0; visibility:hidden; }
+}

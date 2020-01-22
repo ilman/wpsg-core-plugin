@@ -10,7 +10,7 @@
 
 <?php ob_start(); ?>
 <div class="sg-block <?php echo $class ?>" data-mh="block">
-	<div class="block-thumb">
+	<div class="block-thumb" data-mh="block-thumb" style="background-image:url(<?php echo $image_url ?>)">
 		<img src="<?php echo $image_url ?>" alt="image" />
 	</div>
 	<div class="block-body">

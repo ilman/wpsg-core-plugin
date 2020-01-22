@@ -16,7 +16,7 @@
 
 <?php ob_start(); ?>
 <div class="sg-block <?php echo $class ?>" data-mh="block">
-	<div class="block-thumb">
+	<div class="block-thumb" data-mh="block-thumb">
 		<?php echo $icon_inline ?>
 	</div>
 	<div class="block-body">
