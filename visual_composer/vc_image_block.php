@@ -53,6 +53,13 @@ class VCWPSGImageLinkBlockAddons
 
 				array(
 					'type' => 'textfield',
+					'heading' => 'Image Size',
+					'param_name' => 'image_size',
+					'admin_label' => true,
+				),
+
+				array(
+					'type' => 'textfield',
 					'heading' => 'Link URL',
 					'param_name' => 'url',
 					'admin_label' => true,

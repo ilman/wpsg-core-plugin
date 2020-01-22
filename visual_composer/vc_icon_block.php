@@ -52,6 +52,13 @@ class VCWPSGIconLinkBlockAddons
 				),
 
 				array(
+					'type' => 'textfield',
+					'heading' => 'Icon Size',
+					'param_name' => 'image_size',
+					'admin_label' => true,
+				),
+
+				array(
 					'type' => 'textarea_raw_html',
 					'heading' => 'Inline Icon',
 					'param_name' => 'icon_inline',
