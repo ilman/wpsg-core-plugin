@@ -196,6 +196,6 @@
 }
 
 .sg-image-block.default{
-	.block-thumb{ background-size:cover; }
+	.block-thumb{ background-size:cover; background-position:center; }
 	.block-thumb img{ opacity:0; visibility:hidden; }
 }

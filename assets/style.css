@@ -255,6 +255,7 @@
 
 .sg-image-block.default .block-thumb {
   background-size: cover;
+  background-position: center;
 }
 .sg-image-block.default .block-thumb img {
   opacity: 0;
